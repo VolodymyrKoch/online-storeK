@@ -1,1 +1,92 @@
 /* put your styles in this file */
+:root{
+  --bcolor-btn:#7E72F2;
+  --color-btn: #FFFFFF;
+}
+/* Reset */
+html,
+body{
+  font-family: Montserrate, sans-serif;
+height: 100%;
+margin: 0;
+
+  box-sizing: border-box;
+  background-color: rgb(211, 118, 118);
+}
+h1,h2,h3,h4,h5,h6{
+  margin: 0;
+  padding: 0;
+}
+button {
+cursor: pointer;
+}
+
+.card_list{
+  list-style: none;
+  display: flex;
+    flex-wrap: wrap;
+}
+.card_item{
+  max-width: 317px;
+  max-height: 394px;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.133);
+  overflow: hidden;
+}
+.card_item img{
+  display: block;
+  max-width: 100%;
+  object-fit: cover;
+  }
+.card_wrapper{
+  padding: 12px 22px 22px;
+  font-weight: 400;
+  font-size: 14px;
+  }
+  .product_wrapper{
+    max-height: 105px;
+    padding:  22px 5px 0;
+  }
+.product_content{
+display: flex;
+justify-content: space-between;
+align-items: baseline;
+}
+.product_content p {
+   margin: 0;
+}
+.product_rating{
+display: block;
+width: 70px;
+height: 27px;
+background-color: var(--bcolor-btn);
+border-radius: 4px;
+text-align: center;
+line-height: 1.9;
+color: var(--color-btn);
+}
+
+.product_rating::after{
+  /* content: url(../Star\ 1\ \(Stroke\).svg); */
+  content: url(../img/Star\ 1\ \(Stroke\).svg);
+margin-left: 10px;
+}
+.product_name{
+  margin: 15px 0;
+  font-size: 14px;
+  font-weight: 400;
+}
+.product_category{
+  font-size: 11px;
+  margin: 0;
+}
+.product_btn{
+  background-color: var(--bcolor-btn);
+  color: var(--color-btn);
+  border: none;
+  text-transform: uppercase;
+  transition: .3s;
+  padding: 12px 0px;
+  width: -webkit-fill-available;
+}
