@@ -12,10 +12,12 @@ const product = {
   category: 'laptops',
   brand: 'acer',
 };
+
+
 // export default
 class Card {
   constructor(someProduct) {
-    this.componentTitle = someProduct;
+    this.state = someProduct;
     this.myRender();
   }
 
@@ -25,21 +27,26 @@ class Card {
 
     <div class="card_wrapper">
       <picture class="picture">
-        <img src='${this.componentTitle.images[0]}' alt="product_foto">
+        <img src='${this.state.images[0]}' alt="product_foto">
         </picture>
         <div class="product_wrapper">
           <div class="product_content">
-            <p class="product_rating">${this.componentTitle.rating}</p>
-            <p class="product_price">${this.componentTitle.price}</p>
+            <p class="product_rating">${this.state.rating}</p>
+            <p class="product_price">${this.state.price}</p>
           </div>
-          <h5 class="product_name">${this.componentTitle.title}</h5>
-          <p class="product_category">${this.componentTitle.category}</p>
+          <h5 class="product_name">${this.state.title}</h5>
+          <p class="product_category">${this.state.category}</p>
         </div>
     </div>
     <button class="product_btn">Add To Cart</button>
    </li>
      `;
     return result;
+  }
+
+  udate(data = {}) {
+    this.state = data;
+    element.componetElement.innerHTML = this.getTemplate();
   }
 
   myRender() {
