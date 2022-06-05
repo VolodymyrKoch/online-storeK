@@ -27,3 +27,8 @@ text-decoration: none;
 .card-pagination a:hover, .bi:hover {
   background-color: var(--bcolor-btn);
 }
+.card-pagination .active
+{background-color: var(--bcolor-btn);
+color: rgb(81, 255, 0)}
+
+/* .page-link{} */
