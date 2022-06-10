@@ -86,7 +86,7 @@ export default class Pagination {
       //або
       // const {pageIndex} = pageItem.dataset; //todo виконали const pageIndex = pageItem.dataset.pageIndex; через диструктуризацію
       // console.log('pageIndex', pageIndex);
-
+  //*---
       // this.setPage(+pageIndex);  //* переводимо стрічку в число
       //або
       this.setPage(parseInt(pageIndex, 10)); //* переводимо стрічку в число

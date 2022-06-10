@@ -1,4 +1,5 @@
-// import Card from './index.js';
+import Card from './card.js';
+import Pagination from './pagination.js';
 
 const product = {
   id: '76w0hz7015kkr9kjkav',
@@ -13,49 +14,47 @@ const product = {
   brand: 'acer',
 };
 
-
-// export default
-class Card {
-  constructor(someProduct) {
-    this.state = someProduct;
-    this.myRender();
+export default class OnlineStorePage {
+  constructor() {
+    this.components = {};
+    this.initComponents();
+    this.render();
+    this.renderСomponents();
   }
-
   getTemplate() {
-    const result = `
-   <li class="card_item">
-
-    <div class="card_wrapper">
-      <picture class="picture">
-        <img src='${this.state.images[0]}' alt="product_foto">
-        </picture>
-        <div class="product_wrapper">
-          <div class="product_content">
-            <p class="product_rating">${this.state.rating}</p>
-            <p class="product_price">${this.state.price}</p>
-          </div>
-          <h5 class="product_name">${this.state.title}</h5>
-          <p class="product_category">${this.state.category}</p>
+    return `
+      <div>
+        <div data-element="card">
+          <!-- Card component -->
         </div>
-    </div>
-    <button class="product_btn">Add To Cart</button>
-   </li>
-     `;
-    return result;
+        <div data-element="pagination">
+          <!-- Pagination component -->
+        </div>
+      </div>
+    `;
+  }
+  initComponents() {
+    const card = new Card(product);
+    const pagination = new Pagination({
+      // totalElements: 35,
+      activePageIndex: 2,
+      // pageSize: 8,
+    });
+    this.components.card = card;
+    this.components.pagination = pagination;
   }
 
-  udate(data = {}) {
-    this.state = data;
-    element.componetElement.innerHTML = this.getTemplate();
+  renderСomponents() {
+    const cardConteiner = this.element.querySelector('[data-element="card"]');
+    const paginationConteiner = this.element.querySelector(
+      '[data-element="pagination"]',
+    );
+    cardConteiner.append(this.components.card.element);
+    paginationConteiner.append(this.components.pagination.element);
   }
-
-  myRender() {
-    const element = document.createElement('ul');
-    element.innerHTML = this.getTemplate();
-    this.element = element;
+  render() {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = this.getTemplate();
+    this.element = wrapper.firstElementChild;
   }
 }
-
-const card = new Card(product);
-const root = document.querySelector('#root');
-root.append(card.element);
