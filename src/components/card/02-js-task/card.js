@@ -35,7 +35,6 @@ export default class Card {
   myRender() {
     const element = document.createElement('ul');
     element.innerHTML = this.getTemplate();
-    this.element = element;
+    this.element = element.firstElementChild;
   }
 }
-

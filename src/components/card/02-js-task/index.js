@@ -1,30 +1,21 @@
-import Card from './card.js';
 import Pagination from './pagination.js';
-
-const product = {
-  id: '76w0hz7015kkr9kjkav',
-  images: [
-    'https://content2.rozetka.com.ua/goods/images/big_tile/163399632.jpg',
-    'https://content.rozetka.com.ua/goods/images/big_tile/163399633.jpg',
-  ],
-  title: 'Ноутбук Acer Aspire 3 A315-57G-336G (NX.HZREU.01S) Charcoal Black',
-  rating: 2.89,
-  price: 15999,
-  category: 'laptops',
-  brand: 'acer',
-};
+import CardsList from './cards-list.js';
 
 export default class OnlineStorePage {
-  constructor() {
+  constructor(products) {
+    this.pageSize = 3;
+    this.products = products;
     this.components = {};
     this.initComponents();
     this.render();
     this.renderСomponents();
+    this.initEventlisteners();
   }
+
   getTemplate() {
     return `
       <div>
-        <div data-element="card">
+        <div data-element="cardsList">
           <!-- Card component -->
         </div>
         <div data-element="pagination">
@@ -34,27 +25,46 @@ export default class OnlineStorePage {
     `;
   }
   initComponents() {
-    const card = new Card(product);
+    const totalPages = Math.ceil(this.products.length / this.pageSize);
+
+    const cardsList = new CardsList(this.products.slice(0, this.pageSize));
+    console.log('cardsList', cardsList);
     const pagination = new Pagination({
       // totalElements: 35,
-      activePageIndex: 2,
+      activePageIndex: 0,
+      totalPages: totalPages,
       // pageSize: 8,
     });
-    this.components.card = card;
+    this.components.cardsList = cardsList;
     this.components.pagination = pagination;
   }
 
   renderСomponents() {
-    const cardConteiner = this.element.querySelector('[data-element="card"]');
+    const cardsConteiner = this.element.querySelector(
+      '[data-element="cardsList"]',
+    );
     const paginationConteiner = this.element.querySelector(
       '[data-element="pagination"]',
     );
-    cardConteiner.append(this.components.card.element);
+    cardsConteiner.append(this.components.cardsList.element);
     paginationConteiner.append(this.components.pagination.element);
   }
   render() {
     const wrapper = document.createElement('div');
     wrapper.innerHTML = this.getTemplate();
     this.element = wrapper.firstElementChild;
+  }
+  initEventlisteners() {
+    this.components.pagination.element.addEventListener(
+      'page-changed',
+      event => {
+        const pagIndex = event.detail;
+        const start = pagIndex * this.pageSize;
+        const end = start + this.pageSize;
+        const productsList = this.products.slice(start, end);
+
+        this.components.cardsList.update(productsList);
+      },
+    );
   }
 }

@@ -1,7 +1,7 @@
 export default class Pagination {
-  constructor({ actinePageIndex = 0 } = {}) {
+  constructor({ actinePageIndex = 0, totalPages = 0 } = {}) {
     this.actinePageIndex = actinePageIndex;
-    this.defaultPageSize = 12;
+    this.totalPages = totalPages;
     this.render();
     this.addEventListeners();
   }
@@ -18,7 +18,7 @@ export default class Pagination {
     return `
             <ul class="pagination-block" data-element="pagination">
 
-           ${new Array(this.defaultPageSize)
+           ${new Array(this.totalPages)
              .fill(1)
              .map((item, index) => {
                return this.getPageTemplate(index);
@@ -36,7 +36,9 @@ export default class Pagination {
   }
   setPage(pageIndex = 0) {
     if (pageIndex === this.actinePageIndex) return;
-    if (pageIndex > this.defaultPageSize - 1 || pageIndex < 0) return;
+    if (pageIndex > this.totalPages - 1 || pageIndex < 0) return;
+
+    this.dispatchSomeEvent(pageIndex);
 
     const activePage = this.element.querySelector('.card-pagination .active');
     if (activePage) {
@@ -86,10 +88,18 @@ export default class Pagination {
       //або
       // const {pageIndex} = pageItem.dataset; //todo виконали const pageIndex = pageItem.dataset.pageIndex; через диструктуризацію
       // console.log('pageIndex', pageIndex);
-  //*---
+      //*---
       // this.setPage(+pageIndex);  //* переводимо стрічку в число
       //або
       this.setPage(parseInt(pageIndex, 10)); //* переводимо стрічку в число
     });
+  }
+
+  dispatchSomeEvent(pageIndex) {
+    const customEvent = new CustomEvent('page-changed', {
+      detail: pageIndex,
+    });
+
+    this.element.dispatchEvent(customEvent);
   }
 }
