@@ -1,15 +1,29 @@
 import Pagination from './pagination.js';
 import CardsList from './cards-list.js';
 
+const BACKEND_URL = 'https://online-store.bootcamp.place/api/';
+// `products?_page=1&_limit=20`;
 export default class OnlineStorePage {
-  constructor(products) {
-    this.pageSize = 3;
-    this.products = products;
+  constructor() {
+    this.pageSize = 9;
+    this.products = [];
+
+    this.url = new URL('products', BACKEND_URL);
+    this.url.searchParams.set('_limit', this.pageSize);
+
     this.components = {};
     this.initComponents();
     this.render();
     this.renderСomponents();
     this.initEventlisteners();
+    this.update(1);
+  }
+  async loadData(pageNumber) {
+    this.url.searchParams.set('_page', pageNumber);
+
+    const responce = await fetch(this.url);
+    const products = await responce.json();
+    return products;
   }
 
   getTemplate() {
@@ -25,10 +39,12 @@ export default class OnlineStorePage {
     `;
   }
   initComponents() {
-    const totalPages = Math.ceil(this.products.length / this.pageSize);
+    const totalElements = 100;
+    const totalPages = Math.ceil(totalElements / this.pageSize);
 
-    const cardsList = new CardsList(this.products.slice(0, this.pageSize));
-    console.log('cardsList', cardsList);
+    const cardsList = new CardsList(this.products);
+    // const cardsList = new CardsList(this.products.slice(0, this.pageSize));
+    // console.log('cardsList', cardsList);
     const pagination = new Pagination({
       // totalElements: 35,
       activePageIndex: 0,
@@ -59,12 +75,17 @@ export default class OnlineStorePage {
       'page-changed',
       event => {
         const pagIndex = event.detail;
-        const start = pagIndex * this.pageSize;
-        const end = start + this.pageSize;
-        const productsList = this.products.slice(start, end);
-
-        this.components.cardsList.update(productsList);
+        this.update(pagIndex + 1);
       },
     );
+  }
+  async update(pageNumber) {
+    // const start = pagIndex * this.pageSize;
+    // const end = start + this.pageSize;
+    // const productsList = this.products.slice(start, end);
+
+    const productsList = await this.loadData(pageNumber);
+
+    this.components.cardsList.update(productsList);
   }
 }

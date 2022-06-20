@@ -24,10 +24,13 @@ cursor: pointer;
 .card_list{
   list-style: none;
   display: flex;
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 }
+.os-products-list{
+  display: flex;
+  flex-wrap: wrap;}
 .card_item{
-  max-width: 317px;
+  width: 317px;
   max-height: 394px;
   background-color: #FFFFFF;
   border-radius: 8px;
@@ -40,13 +43,18 @@ cursor: pointer;
   display: block;
   max-width: 100%;
   object-fit: cover;
+
+  /* justify-content: center; */
+  /* background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain; */
   }
 .card_wrapper{
   padding: 12px 22px 22px;
   font-weight: 400;
   font-size: 14px;
   }
-  .product_wrapper{
+.product_wrapper{
     max-height: 105px;
     padding:  22px 5px 0;
   }
