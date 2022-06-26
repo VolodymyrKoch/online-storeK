@@ -8,9 +8,9 @@ export default class Pagination {
   getTemplate() {
     return `
     <nav class="card-pagination font-montserrat-400">
-      <a href="#" class="panigation-arrow-left" data-element="nav-prev" ><i class="bi bi-chevron-left"></i></a>
+      <a href="#" class="panigation-arrow-left" data-element="nav-prev" ><i class="bi bi-chevron-left">&#60;</i></a>
         <div>${this.getPages()}</div>
-      <a href="#" class="panigation-arrow-right" data-element="nav-next" ><i class="bi bi-chevron-right"></i></a>
+      <a href="#" class="panigation-arrow-right" data-element="nav-next" ><i class="bi bi-chevron-right">&gt;</i></a>
     </nav>
     `;
   }

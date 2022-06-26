@@ -24,11 +24,27 @@ text-decoration: none;
   border-radius: 50%;
   background-color: #ededed;
 }
-.card-pagination a:hover, .bi:hover {
+.bi{
+   font-style: normal;
+   line-height: 1;
+}
+.bi:hover {
   background-color: var(--bcolor-btn);
+  color: royalblue;
+  color: rgb(81, 255, 0)
 }
 .card-pagination .active
 {background-color: var(--bcolor-btn);
-color: rgb(81, 255, 0)}
+  color: rgb(81, 255, 0)
+}
 
-/* .page-link{} */
+  /* .bi-chevron-left::before{
+  content: url(../img/Star\ 1\ \(Stroke\).svg);
+  fill:rgb(230, 27, 27);
+  color: green;
+} */
+
+.page-link:hover{
+  background-color: var(--bcolor-btn);
+  color: rgb(25, 0, 255);
+}
